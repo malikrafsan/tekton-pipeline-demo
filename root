@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck disable=SC1091 source=.scripts/*
+. "$current_dir/.scripts/reset"
+. "$current_dir/.scripts/format"
+. "$current_dir/.scripts/generator"
+. "$current_dir/.scripts/lint"
+. "$current_dir/.scripts/run"
+. "$current_dir/.scripts/test"
+. "$current_dir/.scripts/coverage"
+
+usage() {
+  echo "
+Usage:
+  ./stamps COMMAND [ARGS] [OPTIONS]
+  ./stamps COMMAND -h
+
+Welcome to OVO Stamps!
+This CLI for helping our setup.
+
+Commands:
+  reset              Remove artifacts, reset redis, remove 
+  format             Perform code format
+  generator          Perform go generate, create mocks and other generated files
+  lint               Perform code lint using Golangci-lint
+  run                Run server
+  test               Run testing
+  coverage           Calculate code coverage
+"
+}
+
+help="-h"
+command=${1:-$help}
+
+export CI="${CI:-}"
+
+if [[ "$command" == "$help" ]]; then
+  usage
+  exit 0
+fi
+
+if [[ ! -f "$current_dir/.scripts/$command" ]]; then
+  usage
+  exit 1
+fi
+
+"$command" "${@:2}"

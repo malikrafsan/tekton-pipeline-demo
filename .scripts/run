@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+run() {
+  go run $current_dir/main.go -work=$1
+}

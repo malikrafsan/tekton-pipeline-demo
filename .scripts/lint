@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+lint() {
+  golangci-lint --config=$current_dir/.golangci.yml -vvv run
+}

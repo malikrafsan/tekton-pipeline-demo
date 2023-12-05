@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+reset() {
+  echo -e "Cleaning Redis FLUSHALL"
+
+  redis-cli FLUSHALL
+
+  rm -fr dest
+
+  echo -e "\nFinished resetting all dependencies"
+}

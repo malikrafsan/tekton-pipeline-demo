@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+coverage() {
+    package-coverage -a -m 70 -i "(^|/)examples/|(^|/)mocks/|(^|/)mock_.*\.go|(^|/)lua/|(^|/)pb/|(^|/).*\.pb\.go|(^|/)z_.*\.go|(^|/)(_)?resources/|(^|/)vendor/|(^|/)static/|(^|/)testdata/|(^|/)scripts/|(^|/)dist/|(^|/)cmd/" ./
+}

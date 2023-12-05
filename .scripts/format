@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+format() {
+    golangci-lint --config=$current_dir/.golangci-fmt.yml -vvv run
+}

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+test() {
+
+    usage() {
+    echo -e "
+Available options are ['unit', 'unit-cover', 'e2e'].
+Example:
+  ./stockbit test unit            Run unit testing using go test ./...
+  ./stockbit test unit-cover      Run unit testing coverage using package-cover
+  ./stockbit test e2e             Run end to end testing
+"
+  exit 1
+}
+
+  if [[ $1 == "" ]]; then
+    usage
+  fi
+
+  if [[ $1 == "unit" ]]; then
+    go test ./...
+  elif [[ $1 == "unit-cover" ]]; then
+    package-coverage -a -m 70 -i "(^|/)examples/|(^|/)mocks/|(^|/)mock_.*\.go|(^|/)lua/|(^|/)pb/|(^|/).*\.pb\.go|(^|/)z_.*\.go|(^|/)(_)?resources/|(^|/)vendor/|(^|/)static/|(^|/)testdata/|(^|/)scripts/|(^|/)dist/|(^|/)cmd/" ./
+  fi
+}
